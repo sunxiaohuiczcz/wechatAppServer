@@ -2,19 +2,27 @@ const User = require("../model/user");
 
 const userDAO = {};
 
-userDAO.queryById = function (id) {
+userDAO.queryById = function (id, action) {
     User.findOne({
         where: {
             id: id
         }
     }).then(res => {
-        return res
+        action(res);
     });
 };
 
-userDAO.queryAll = function () {
+userDAO.queryByCondition = function (condition, action) {
+    User.findAll({
+        where: condition
+    }).then(res => {
+        action(res);
+    });
+};
+
+userDAO.queryAll = function (action) {
     User.findAll().then(res => {
-        return res
+        action(res);
     });
 };
 

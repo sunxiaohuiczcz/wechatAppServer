@@ -16,4 +16,4 @@ const UserCoin = seq.define('t_app_user_coin', {
     }
 });
 
-UserCoin.sync({force: true});
+UserCoin.sync({force: false});

@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const UserRelation = seq.define('t_app_user_relation', {
     id: {
         type: Sequelize.BIGINT,
+        autoIncrement: true,
         primaryKey: true
     },
     userId: {

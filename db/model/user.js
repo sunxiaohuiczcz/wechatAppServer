@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const User = seq.define('t_app_user', {
     id: {
         type: Sequelize.BIGINT,
+        autoIncrement: true,
         primaryKey: true
     },
     nickname: {
@@ -19,5 +20,7 @@ const User = seq.define('t_app_user', {
     }
 });
 
-User.sync({force: true});
+User.sync({force: false});
+
+module.exports = User;
 

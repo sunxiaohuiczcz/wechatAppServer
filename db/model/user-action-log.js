@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const UserActionLog = seq.define('t_app_user_action_log', {
     id: {
         type: Sequelize.BIGINT,
+        autoIncrement: true,
         primaryKey: true
     },
     userId: {

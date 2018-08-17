@@ -1,0 +1,6 @@
+1. 如果MySQL数据库版本大于等于8，需打开navicat for mysql，新建一个查询并执行：
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'wdsxh1203';
+CREATE DATABASE app;
+
+2. 如果IDE不识别 "（）=>" 、 "const" 等高版本语法，按以下方式设置：
+preference -> Language & Framework -> Javascript -> Javascript language version -> 选择 "ECMAScript 6" -> 保存

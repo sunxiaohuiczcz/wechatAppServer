@@ -1,0 +1,70 @@
+1. Connection
+Sequelize可以帮助访问数据库，在访问数据库前，需要先连接到数据库并打开一个会话，具体做法，就是创建一个Sequelize对象：
+
+const sequelize = new Sequelize('app', 'root', 'wdsxh1203', {
+
+    host: 'localhost',
+    dialect: 'mysql',
+    operatorsAliases: false,
+
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+    }
+
+});
+
+Sequelize的构造方法包含三个参数库名、用户名、密码、连接设置
+
+2. Model
+Model是数据库中表的抽象。使用Sequelize时，用户不必手工在MySQL中创建表，可通过定义Model对象，并执行XXX.sync方法来自动
+生成响应的表。举个栗子，现在需创建一张记录用户信息的User表，字段包括id（主键）、nickname（昵称）、openid（微信用户身份标识）、level（用户等级），
+我们可以用一下代码来实现实体（表）定义：
+
+const User = seq.define('t_app_user', {
+    id: {
+        type: Sequelize.BIGINT,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    nickname: {
+        type: Sequelize.STRING
+    },
+    openid: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
+    },
+    level: {
+        type: Sequelize.INTEGER
+    }
+});
+
+seq：Sequelize对象，可理解为一个数据库连接
+seq.define（参数1， 参数2）
+    参数1：表名
+    参数2：表字段定义
+        type：表字段的类型
+        autoIncrement：是否自增
+        primaryKey：是否设为主键
+        unique：字段值是否唯一
+        allowNull：字段值是否可以为空
+
+定义完表结构，通过User.sync({force: false})方法，即可通知数据库同步产生一张表
+
+3. DAO
+在项目中，DAO是负责数据访问的模块。定义完表后，下一步就是访问到表中的数据了。首先通过const User = require("../model/user")来引入
+我们定义的Model，然后借助Sequelize定义的create、destroy、update、findOne、findAll等方法，便可完成数据的增删改查。
+
+userDAO.insert = function (nickname, openid, level) {
+    User.create({
+        nickname: nickname,
+        openid: openid,
+        level: level
+    }).then(console.log("执行insert成功"));
+};
+
+举个栗子，我们为userDAO定义一个添加用户的方法"insert"，方法传入三个参数nickname, openid, level，分别表示新增用户的昵称、openid和
+等级。在方法体中，调用Model的create方法为库中新添一个数据，然后在then中定义添加数据成功后的回调逻辑。

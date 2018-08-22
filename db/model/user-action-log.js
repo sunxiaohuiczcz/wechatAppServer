@@ -19,3 +19,5 @@ const UserActionLog = seq.define('t_app_user_action_log', {
 });
 
 UserActionLog.sync({force: false});
+
+module.exports = UserActionLog;

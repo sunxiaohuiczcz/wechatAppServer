@@ -22,3 +22,5 @@ const UserRelation = seq.define('t_app_user_relation', {
 });
 
 UserRelation.sync({force: false});
+
+module.exports = UserRelation;

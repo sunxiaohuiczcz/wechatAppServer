@@ -34,4 +34,15 @@ router.get('/getUser', function (req, res) {
     });
 });
 
+router.get('/getUserById', function (req, resp) {
+    const id = req.query.id;
+    if (id === "" || id === "undefined" || id == null) {
+        resp.json({msg: 'id不能为空'});
+        return;
+    }
+    userDao.queryById(id, function (res) {
+        resp.json(res.nickname);
+    })
+});
+
 module.exports = router;

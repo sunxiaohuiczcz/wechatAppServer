@@ -45,4 +45,25 @@ router.get('/getUserById', function (req, resp) {
     })
 });
 
+router.get('/signIn', function (req, resp) {
+    const userId = req.query.pin;
+    const coinCount = calculateCoin('signIn')
+    if(coinCount > 0){
+        SignInDAO.updateById(userId, coinCount);
+    }
+    const userCoinCount = userCoinDAO.getCoinByUserId(userId);
+})
+
+
+
+function calculateCoin(action){
+    if(action === 'sign'){
+        return 100;
+    } else if(action === 'success'){
+        return 10000;
+    }
+
+}
+
+
 module.exports = router;

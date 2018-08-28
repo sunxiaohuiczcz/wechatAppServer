@@ -49,4 +49,14 @@ userDAO.deleteById = function (id) {
         .then(console.log("执行delete成功"))
 };
 
+userDAO.updateLevel = function (userId, level) {
+    User.update({
+        id: userId,
+        level: level
+    }, {
+        where: {id: id}
+    }).then(console.log("执行等级更新成功"));
+};
+
+
 module.exports = userDAO;

@@ -7,7 +7,7 @@ const BenefitsPick = seq.define('benefits_pick', {
             autoIncrement: true,
             primaryKey: true
         },
-        picker: {//领取人
+        user_id: {//领取人
             type: Sequelize.STRING
         },
         pick_time: {//领取时间
@@ -16,7 +16,7 @@ const BenefitsPick = seq.define('benefits_pick', {
         benefits_id: {//福利id
             type: Sequelize.BIGINT
         }
-    },
+    }, 
     {freezeTableName: true}
 )
 ;
